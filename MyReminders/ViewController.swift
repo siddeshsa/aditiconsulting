@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
 
@@ -18,7 +19,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
+        initialise()
+    }
+    
+    func initialise() {
         
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
+        do{
+            let result = try managedContext.fetch(fetchRequest)
+            var i : Int = 0
+            print(i)
+            for data in result as! [NSManagedObject]{
+                
+                  let title = (data.value(forKey: "title")as! String)
+                  let body = (data.value(forKey: "desc")as! String)
+                
+                let new = MyReminder(title: title,identifier: body)
+                self.models.append(new)
+                i = i + 1
+                print(i)
+            }
+        }catch{
+            print("failed")
+        }
     }
 
     @IBAction func didTapAdd() {
@@ -71,10 +96,10 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
-        var titl:String = models[indexPath.row].title
-        var desc:String = models[indexPath.row].identifier
-        var i:Int = indexPath.row
-        var count:Int = models.count - 1
+        let titl:String = models[indexPath.row].title
+        let desc:String = models[indexPath.row].identifier
+        let i:Int = indexPath.row
+        let count:Int = models.count - 1
         if(count>1 && i<count){
         for index in i...count-1{
             models[index].title = models[index+1].title
@@ -96,16 +121,53 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = models[indexPath.row].title
+        
         cell.detailTextLabel?.text = models[indexPath.row].identifier
 
+        self.saveItem(title: models[indexPath.row].title, desc: models[indexPath.row].identifier)
         cell.textLabel?.font = UIFont(name: "Arial", size: 25)
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 22)
-        
-        
 
         return cell
     }
 
+    
+    func saveItem(title: String, desc: String){
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  {return}
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let userEntity = NSEntityDescription.entity(forEntityName: "List", in: managedContext)!
+       let user = NSManagedObject(entity: userEntity, insertInto: managedContext
+        )
+        user.setValue(title, forKey: "title")
+        user.setValue(desc, forKey: "desc")
+        do {
+            try managedContext.save()
+        } catch let error as NSError {
+            print("error")
+        }
+        
+        
+          let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
+          do{
+              let result = try managedContext.fetch(fetchRequest)
+          
+              for data in result as! [NSManagedObject]{
+                  
+                  print(data.value(forKey: "title")as! String)
+                 
+              }
+          }catch{
+              print("failed")
+          }
+        
+        
+    }
+       
+    
+    
+    
+    
+    
 }
 
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		044008DA24A4E40C005FB1DE /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 044008D824A4E40C005FB1DE /* Model.xcdatamodeld */; };
 		83DE4E3B2424E9830079BCF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE4E3A2424E9830079BCF3 /* AppDelegate.swift */; };
 		83DE4E3D2424E9830079BCF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE4E3C2424E9830079BCF3 /* SceneDelegate.swift */; };
 		83DE4E3F2424E9830079BCF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83DE4E3E2424E9830079BCF3 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		044008D924A4E40C005FB1DE /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		83DE4E372424E9830079BCF3 /* MyReminders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyReminders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83DE4E3A2424E9830079BCF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		83DE4E3C2424E9830079BCF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				83DE4E3A2424E9830079BCF3 /* AppDelegate.swift */,
 				83DE4E3C2424E9830079BCF3 /* SceneDelegate.swift */,
 				83DE4E3E2424E9830079BCF3 /* ViewController.swift */,
+				044008D824A4E40C005FB1DE /* Model.xcdatamodeld */,
 				83DE4E402424E9830079BCF3 /* Main.storyboard */,
 				83DE4E432424E9830079BCF3 /* Assets.xcassets */,
 				83DE4E452424E9830079BCF3 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			files = (
 				83DE4E3F2424E9830079BCF3 /* ViewController.swift in Sources */,
 				83DE4E3B2424E9830079BCF3 /* AppDelegate.swift in Sources */,
+				044008DA24A4E40C005FB1DE /* Model.xcdatamodeld in Sources */,
 				83DE4E4F2424EB0E0079BCF3 /* AddViewController.swift in Sources */,
 				83DE4E3D2424E9830079BCF3 /* SceneDelegate.swift in Sources */,
 			);
@@ -342,6 +346,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		044008D824A4E40C005FB1DE /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				044008D924A4E40C005FB1DE /* Model.xcdatamodel */,
+			);
+			currentVersion = 044008D924A4E40C005FB1DE /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 83DE4E2F2424E9830079BCF3 /* Project object */;
 }
