@@ -32,7 +32,7 @@ class ViewController: UIViewController {
             var i : Int = 0
             print(i)
             for data in result as! [NSManagedObject]{
-                
+               // managedContext.delete(data)
                   let title = (data.value(forKey: "title")as! String)
                   let body = (data.value(forKey: "desc")as! String)
                 
@@ -58,6 +58,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 self.navigationController?.popToRootViewController(animated: true)
                 let new = MyReminder(title: title,identifier: body)
+                self.saveItem(title: title, desc: body)
                 self.models.append(new)
                 self.table.reloadData()
 
@@ -124,7 +125,6 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
         
         cell.detailTextLabel?.text = models[indexPath.row].identifier
 
-        self.saveItem(title: models[indexPath.row].title, desc: models[indexPath.row].identifier)
         cell.textLabel?.font = UIFont(name: "Arial", size: 25)
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 22)
 
