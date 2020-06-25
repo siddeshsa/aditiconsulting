@@ -14,12 +14,29 @@ class ViewController: UIViewController {
     @IBOutlet var table: UITableView!
 
     var models = [MyReminder]()
-
+    var checkcount : Int = 0
+    
+    var filteredTableData = [MyReminder]()
+    
+      let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
         table.dataSource = self
         initialise()
+        
+        navigationController?.navigationBar.prefersLargeTitles = true
+               navigationItem.searchController = searchController
+               navigationItem.hidesSearchBarWhenScrolling = true
+               
+               searchController.searchResultsUpdater = self
+               searchController.dimsBackgroundDuringPresentation = false
+               
+               definesPresentationContext = true
+               
+        
+        
     }
     
     func initialise() {
@@ -83,20 +100,42 @@ class ViewController: UIViewController {
 //}
 
 
-extension ViewController: UITableViewDataSource,UITableViewDelegate {
+extension ViewController: UITableViewDataSource,UITableViewDelegate,UISearchResultsUpdating {
+  
+    func filterContentForSearchText(searchText: String, scope: String = "All"){
+         
+         filteredTableData = models.filter({ (model)-> Bool in return (model.title as! String).lowercased().contains(searchText.lowercased()) })
+         
+        table.reloadData()
+     }
+    
+    
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(searchText: searchController.searchBar.text!)
+    }
+    
 
+ 
+    
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return models.count
+        if  (searchController.isActive && searchController.searchBar.text != "") {
+            return filteredTableData.count
+        } else{
+            return models.count
+        }
     }
 
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-           tableView.cellForRow(at: indexPath)?.accessoryType = .checkmark
+        checkcount = checkcount + 1
+           
         let titl:String = models[indexPath.row].title
         let desc:String = models[indexPath.row].identifier
         let i:Int = indexPath.row
@@ -109,6 +148,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
                  models[count].title = titl
                  models[count].identifier = desc
         }
+        
         tableView.reloadData()
      }
 
@@ -120,6 +160,20 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        
+        if (searchController.isActive && searchController.searchBar.text != "") {
+             let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+             cell.textLabel?.text = filteredTableData[indexPath.row].title
+             
+             cell.detailTextLabel?.text = filteredTableData[indexPath.row].identifier
+
+             cell.textLabel?.font = UIFont(name: "Arial", size: 25)
+             cell.detailTextLabel?.font = UIFont(name: "Arial", size: 22)
+
+             return cell
+         }
+        else{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = models[indexPath.row].title
         
@@ -129,6 +183,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate {
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 22)
 
         return cell
+        }
     }
 
     

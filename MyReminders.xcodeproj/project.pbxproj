@@ -63,12 +63,12 @@
 				83DE4E3A2424E9830079BCF3 /* AppDelegate.swift */,
 				83DE4E3C2424E9830079BCF3 /* SceneDelegate.swift */,
 				83DE4E3E2424E9830079BCF3 /* ViewController.swift */,
-				044008D824A4E40C005FB1DE /* Model.xcdatamodeld */,
-				83DE4E402424E9830079BCF3 /* Main.storyboard */,
+				83DE4E4E2424EB0E0079BCF3 /* AddViewController.swift */,
 				83DE4E432424E9830079BCF3 /* Assets.xcassets */,
+				83DE4E402424E9830079BCF3 /* Main.storyboard */,
+				044008D824A4E40C005FB1DE /* Model.xcdatamodeld */,
 				83DE4E452424E9830079BCF3 /* LaunchScreen.storyboard */,
 				83DE4E482424E9830079BCF3 /* Info.plist */,
-				83DE4E4E2424EB0E0079BCF3 /* AddViewController.swift */,
 			);
 			path = MyReminders;
 			sourceTree = "<group>";
