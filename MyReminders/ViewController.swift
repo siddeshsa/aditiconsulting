@@ -135,8 +135,12 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate,UISearchResu
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("ind3=",indexPath.row)
+        print(checkcount)
+        print(models.count)
+        if(indexPath.row < models.count - checkcount){
         checkcount = checkcount + 1
-           
+        
         let titl:String = models[indexPath.row].title
         let desc:String = models[indexPath.row].identifier
         let i:Int = indexPath.row
@@ -150,7 +154,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate,UISearchResu
                  models[count].identifier = desc
                  
         }
-        
+        }
         tableView.reloadData()
      }
 
