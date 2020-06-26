@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
       let searchController = UISearchController(searchResultsController: nil)
     
+    @IBOutlet weak var tickMark: UIImageView!
     override func viewDidLoad() {
         super.viewDidLoad()
         table.delegate = self
@@ -147,6 +148,7 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate,UISearchResu
         }
                  models[count].title = titl
                  models[count].identifier = desc
+                 
         }
         
         tableView.reloadData()
@@ -182,10 +184,26 @@ extension ViewController: UITableViewDataSource,UITableViewDelegate,UISearchResu
         cell.textLabel?.font = UIFont(name: "Arial", size: 25)
         cell.detailTextLabel?.font = UIFont(name: "Arial", size: 22)
 
+        if (indexPath.row >= models.count - checkcount){
+              print("hitt")
+               cell.backgroundColor = UIColor .lightGray
+               cell.accessoryType = .checkmark
+              }
+            
         return cell
         }
     }
 
+    
+//    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+//
+//        if (indexPath.row > models.count - checkcount){
+//       print("hitt")
+//        cell.backgroundColor = UIColor .lightGray
+//
+//       }
+//
+//    }
     
     func saveItem(title: String, desc: String){
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else  {return}
